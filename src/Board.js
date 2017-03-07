@@ -1,4 +1,5 @@
 import { EMPTY } from "./constants";
+import InvalidMove from "./InvalidMove";
 
 class Board {
   constructor(numberOfRows = 6, numberOfColumns = 7) {
@@ -16,6 +17,8 @@ class Board {
         return;
       }
     }
+
+    throw new InvalidMove("Column is full");
   }
 
   state() {

@@ -1,7 +1,12 @@
 import Board from "../Board";
 import { EMPTY as _, YELLOW as Y, RED as R} from "../constants";
+import InvalidMove from "../InvalidMove";
 
 let board;
+
+function fillBoard() {
+
+}
 
 beforeEach(() => {
   board = new Board();
@@ -34,4 +39,14 @@ it("tokens can be dropped into given column", () => {
                                   [_, _, Y, _, _, _, _],
                                   [_, _, R, _, _, _, _]
                                 ]);
+});
+
+it("exception thrown when dropping token into full column", () => {
+  const smallBoard = new Board(1, 1);
+  smallBoard.dropTokenIntoColumn(R, 0);
+
+  const dropTokenIntoFullColumn = () => smallBoard.dropTokenIntoColumn(R, 0);
+
+  expect(dropTokenIntoFullColumn).toThrowError("Column is full")
+  expect(dropTokenIntoFullColumn).toThrowError(InvalidMove);
 });
