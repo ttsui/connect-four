@@ -99,12 +99,26 @@ it("isGameOver() returns winner when there is a winning sequence of tokens", () 
 it("isGameOver() returns INCOMPLETE when there are still moves possible ", () => {
   const theBoard = (state) => (new Board(5, 5, state));
 
-  const noWinner = theBoard([
+  const gameNotOver = theBoard([
     [_, _, _, _, _],
     [_, _, _, _, _],
     [_, _, _, _, _],
     [_, _, _, _, _],
     [R, R, Y, R, _]
   ]);
-  expect(noWinner.isGameOver()).toEqual(GAME_RESULT.INCOMPLETE);
+
+  expect(gameNotOver.isGameOver()).toEqual(GAME_RESULT.INCOMPLETE);
+});
+
+it("isGameOver() returns DRAW when there are no more moves possible ", () => {
+  const theBoard = (state) => (new Board(4, 4, state));
+
+  const draw = theBoard([
+    [R, Y, R, R],
+    [Y, R, Y, Y],
+    [R, R, Y, Y],
+    [R, R, Y, R]
+  ]);
+
+  expect(draw.isGameOver()).toEqual(GAME_RESULT.DRAW);
 });

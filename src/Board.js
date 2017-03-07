@@ -8,8 +8,10 @@ class Board {
   constructor(numberOfRows = 6, numberOfColumns = 7, initialState = []) {
     this._state = initialState;
 
-    for (let i=0; i < numberOfRows; i++) {
-      this._state.push(new Array(numberOfColumns).fill(EMPTY))
+    if (this._state.length === 0) {
+      for (let i=0; i < numberOfRows; i++) {
+        this._state.push(new Array(numberOfColumns).fill(EMPTY))
+      }
     }
   }
 
@@ -25,6 +27,11 @@ class Board {
   }
 
   isGameOver() {
+    const everyCellFilled = this._state.every(row => row.every(cell => cell !== EMPTY));
+    if (everyCellFilled) {
+      return GAME_RESULT.DRAW;
+    }
+
     let result = GAME_RESULT.INCOMPLETE;
 
     this._state.forEach((row, rowIdx) => {
@@ -58,10 +65,10 @@ class Board {
     let isConnectedBottomToTopDiagnol = true;
 
     for (let i=1; i < WINNING_NUMBER_OF_CONNECTIONS; i++) {
-      isConnectedColumn = isConnectedColumn && (this._state[rowIdx + i][colIdx] === firstCell);
-      isConnectedRow = isConnectedRow && (this._state[rowIdx][colIdx + i] === firstCell);
-      isConnectedTopToBottomDiagnol = isConnectedTopToBottomDiagnol && (this._state[rowIdx + i][colIdx + i] === firstCell);
-      isConnectedBottomToTopDiagnol = isConnectedBottomToTopDiagnol && (this._state[rowIdx + i][colIdx - i] === firstCell);
+      isConnectedColumn = isConnectedColumn && (this._tokenAt(rowIdx + i, colIdx) === firstCell);
+      isConnectedRow = isConnectedRow && (this._tokenAt(rowIdx, colIdx + i) === firstCell);
+      isConnectedTopToBottomDiagnol = isConnectedTopToBottomDiagnol && (this._tokenAt(rowIdx + i, colIdx + i) === firstCell);
+      isConnectedBottomToTopDiagnol = isConnectedBottomToTopDiagnol && (this._tokenAt(rowIdx + i, colIdx - i) === firstCell);
     }
 
     return isConnectedRow ||
@@ -72,6 +79,14 @@ class Board {
 
   _printBoard() {
     this._state.forEach(row => console.log(row.join(" ")));
+  }
+
+  _tokenAt(rowIdx, colIdx) {
+    if (rowIdx < 0 || rowIdx >= this._state.length) {
+      return undefined;
+    }
+
+    return this._state[rowIdx][colIdx];
   }
 }
 
