@@ -37,7 +37,9 @@ class App {
   }
 
   _printBoard() {
-    this._board.state().forEach(row => this._output(row.join(" ")));
+    const output = this._board.state().map(row => row.join(" ")).join("\n");
+
+    this._output(output);
   }
 }
 
