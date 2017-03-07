@@ -7,7 +7,7 @@ function boardToString(board) {
 
 it("reads input from user then prints board", () => {
   const input = {
-    question: jest.fn().mockImplementationOnce((prompt, callback) => callback("1")),
+    question: jest.fn().mockImplementationOnce((prompt, callback) => callback("2")),
     close: jest.fn()
   };
   const output = jest.fn();
@@ -23,7 +23,8 @@ it("reads input from user then prints board", () => {
     [_, _, _, _, _, _, _],
     [_, _, _, _, _, _, _],
     [_, _, _, _, _, _, _],
-    [_, R, _, _, _, _, _]
+    [_, R, _, _, _, _, _],
+    [1, 2, 3, 4, 5, 6, 7]
   ]));
 });
 

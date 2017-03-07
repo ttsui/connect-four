@@ -1,4 +1,5 @@
 import readline from "readline";
+import _ from "lodash";
 import Board from "./Board";
 import { RED, GAME_RESULT } from "./constants";
 
@@ -17,6 +18,7 @@ class App {
   }
 
   start() {
+    this._printBoard();
     this._getInput();
   }
 
@@ -40,9 +42,10 @@ class App {
   }
 
   _printBoard() {
+    const columnNumbers = _.range(1, 8).join(" ");
     const output = this._board.state().map(row => row.join(" ")).join("\n");
 
-    this._output(output);
+    this._output(`${output}\n${columnNumbers}`);
   }
 }
 
