@@ -52,8 +52,17 @@ it("exception thrown when dropping token into full column", () => {
 
   const dropTokenIntoFullColumn = () => smallBoard.dropTokenIntoColumn(R, 0);
 
-  expect(dropTokenIntoFullColumn).toThrowError("Column is full")
+  expect(dropTokenIntoFullColumn).toThrowError("Column is full");
   expect(dropTokenIntoFullColumn).toThrowError(InvalidMove);
+});
+
+it("exception thrown when dropping token with an invalid column number", () => {
+  const smallBoard = new Board(1, 1);
+
+  const dropTokenIntoInvalidColumn = () => smallBoard.dropTokenIntoColumn(R, 2);
+
+  expect(dropTokenIntoInvalidColumn).toThrowError("Invalid column number: 2");
+  expect(dropTokenIntoInvalidColumn).toThrowError(InvalidMove);
 });
 
 it("isGameOver() returns winner when there is a winning sequence of tokens", () => {

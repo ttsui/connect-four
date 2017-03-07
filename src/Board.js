@@ -16,6 +16,10 @@ class Board {
   }
 
   dropTokenIntoColumn(token, column) {
+    if ((column < 0) || (column >= this._state[0].length)) {
+      throw new InvalidMove(`Invalid column number: ${column + 1}`);
+    }
+
     for (let row=this._state.length-1; row >= 0; row--) {
       if (this._state[row][column] === EMPTY) {
         this._state[row][column] = token;

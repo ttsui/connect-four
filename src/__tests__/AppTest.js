@@ -40,3 +40,17 @@ it("closes input once the game is over", () => {
 
   expect(input.close).toHaveBeenCalledTimes(1);
 });
+
+it("show an error message when an invalid column is given, and prompt again", () => {
+  const input = {
+    question: jest.fn().mockImplementationOnce((prompt, callback) => callback("99")),
+    close: jest.fn()
+  };
+  const output = jest.fn();
+
+  const app = new App(input, output);
+
+  app.start();
+
+  expect(output).toHaveBeenLastCalledWith("Invalid column number: 99");
+});

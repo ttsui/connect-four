@@ -22,9 +22,12 @@ class App {
 
   _getInput() {
     this._input.question("Enter column number: ", column => {
-      this._board.dropTokenIntoColumn(RED, parseInt(column));
-
-      this._printBoard();
+      try {
+        this._board.dropTokenIntoColumn(RED, parseInt(column) - 1);
+        this._printBoard();
+      } catch (e) {
+        this._output(e.message);
+      }
 
       const gameResult = this._board.isGameOver();
       if (gameResult !== GAME_RESULT.INCOMPLETE) {
