@@ -9,6 +9,15 @@ class Board {
     }
   }
 
+  dropTokenIntoColumn(token, column) {
+    for (let row=this._state.length-1; row >= 0; row--) {
+      if (this._state[row][column] === EMPTY) {
+        this._state[row][column] = token;
+        return;
+      }
+    }
+  }
+
   state() {
     return this._state;
   }
