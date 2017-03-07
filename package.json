@@ -1,5 +1,5 @@
 {
-  "name": "tic-tac-toe",
+  "name": "connect-four",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
@@ -7,6 +7,7 @@
     "react-scripts": "0.9.3"
   },
   "dependencies": {
+    "babel-cli": "^6.23.0",
     "boron": "^0.2.3",
     "enzyme": "^2.7.1",
     "react": "^15.4.2",
@@ -14,8 +15,8 @@
     "react-dom": "^15.4.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "npm run build && node ./build/main.js",
+    "build": "./node_modules/.bin/babel src --out-dir build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }

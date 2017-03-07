@@ -2,7 +2,7 @@
 Implementation of connect-four.
 
 ## Run
-    $ node src/main.js
+    $ npm run start
 
 ## Test
     $ npm test

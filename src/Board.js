@@ -77,10 +77,6 @@ class Board {
            isConnectedBottomToTopDiagnol;
   }
 
-  _printBoard() {
-    this._state.forEach(row => console.log(row.join(" ")));
-  }
-
   _tokenAt(rowIdx, colIdx) {
     if (rowIdx < 0 || rowIdx >= this._state.length) {
       return undefined;
