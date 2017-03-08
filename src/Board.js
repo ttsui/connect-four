@@ -33,10 +33,10 @@ class Board {
   isGameOver() {
     const everyCellFilled = this._state.every(row => row.every(cell => cell !== EMPTY));
     if (everyCellFilled) {
-      return GAME_RESULT.DRAW;
+      return { status: GAME_RESULT.DRAW };
     }
 
-    let result = GAME_RESULT.INCOMPLETE;
+    let result = { status: GAME_RESULT.INCOMPLETE };
 
     this._state.forEach((row, rowIdx) => {
       row.forEach((cell, colIdx) => {
@@ -45,11 +45,7 @@ class Board {
         }
 
         if (this._isConnectFour(rowIdx, colIdx)) {
-          if (cell === RED) {
-            result = GAME_RESULT.RED_WINS;
-          } else {
-            result = GAME_RESULT.YELLOW_WINS;
-          }
+          result = { status: GAME_RESULT.WINNER, winningToken: cell };
         }
       });
     });

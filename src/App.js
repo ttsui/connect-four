@@ -19,7 +19,7 @@ class App {
   _checkForEndGame() {
     const gameResult = this._board.isGameOver();
 
-    if (gameResult !== GAME_RESULT.INCOMPLETE) {
+    if (gameResult.status !== GAME_RESULT.INCOMPLETE) {
       this._output(this._gameOverMessage(gameResult));
       this._onGameOver();
     } else {
@@ -28,15 +28,13 @@ class App {
   }
 
   _gameOverMessage(gameResult) {
-    let message = "Game Over: ";
+    let message = "Game Over:";
 
-    switch (gameResult) {
-      case GAME_RESULT.RED_WINS:
-        return message + "Red player wins!"
-      case GAME_RESULT.YELLOW_WINS:
-        return message + "Yellow player wins!"
-      case GAME_RESULT.RED_WINS:
-        return message + "It's a draw."
+    switch (gameResult.status) {
+      case GAME_RESULT.DRAW:
+        return message + " It's a draw."
+      case GAME_RESULT.WINNER:
+        return `${message} ${gameResult.winningToken} player wins!`
     }
   }
 
