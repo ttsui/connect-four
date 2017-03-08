@@ -34,9 +34,22 @@ class App {
 
     if (gameResult !== GAME_RESULT.INCOMPLETE) {
       this._input.close();
-      this._output("Game result is: ", gameResult);
+      this._output(this._gameOverMessage(gameResult));
     } else {
       this._nextTurn();
+    }
+  }
+
+  _gameOverMessage(gameResult) {
+    let message = "Game Over: ";
+
+    switch (gameResult) {
+      case GAME_RESULT.RED_WINS:
+        return message + "Red player wins!"
+      case GAME_RESULT.YELLOW_WINS:
+        return message + "Yellow player wins!"
+      case GAME_RESULT.RED_WINS:
+        return message + "It's a draw."
     }
   }
 
