@@ -33,8 +33,7 @@ it("closes input once the game is over", () => {
   let turnNumber = 0;
   const input = {
     question: jest.fn((prompt, callback) => {
-      turnNumber++;
-      callback((turnNumber % 2) + 1);
+      callback(turnNumber++);
     }),
     close: jest.fn()
   };

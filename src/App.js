@@ -3,6 +3,7 @@ import _ from "lodash";
 import Board from "./Board";
 import { RED, YELLOW, GAME_RESULT } from "./constants";
 import HumanPlayer from "./HumanPlayer";
+import ComputerPlayer from "./ComputerPlayer";
 
 function createInput() {
   return readline.createInterface({
@@ -19,7 +20,7 @@ class App {
     this._turnNumber = 0;
     this._players = [
       new HumanPlayer(RED, this._input),
-      new HumanPlayer(YELLOW, this._input)
+      new ComputerPlayer(YELLOW, this._board)
     ];
   }
 
@@ -30,6 +31,7 @@ class App {
 
   _checkForEndGame() {
     const gameResult = this._board.isGameOver();
+
     if (gameResult !== GAME_RESULT.INCOMPLETE) {
       this._input.close();
       this._output("Game result is: ", gameResult);
