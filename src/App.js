@@ -23,6 +23,9 @@ class App {
   }
 
   _getInput() {
+    const validMoves = this._board.validMoves().map(c => c+1).join(", ");
+    this._output(`Valid column numbers: ${validMoves}`);
+
     this._input.question("Enter column number: ", column => {
       try {
         this._board.dropTokenIntoColumn(RED, parseInt(column) - 1);

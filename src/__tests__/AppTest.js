@@ -17,7 +17,7 @@ it("reads input from user then prints board", () => {
   app.start();
 
   expect(input.question).toHaveBeenCalled();
-  expect(output).toHaveBeenLastCalledWith(boardToString([
+  expect(output).toHaveBeenCalledWith(boardToString([
     [_, _, _, _, _, _, _],
     [_, _, _, _, _, _, _],
     [_, _, _, _, _, _, _],
@@ -53,5 +53,5 @@ it("show an error message when an invalid column is given, and prompt again", ()
 
   app.start();
 
-  expect(output).toHaveBeenLastCalledWith("Invalid column number: 99");
+  expect(output).toHaveBeenCalledWith("Invalid column number: 99");
 });

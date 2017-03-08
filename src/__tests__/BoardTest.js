@@ -17,7 +17,7 @@ beforeEach(() => {
   board = new Board();
 });
 
-it("initial state of board is empty", () => {
+xit("initial state of board is empty", () => {
   const state = board.state();
 
   expect(state.length).toEqual(6);
@@ -32,7 +32,7 @@ it("initial state of board is empty", () => {
                         ]);
 });
 
-it("tokens can be dropped into given column", () => {
+xit("tokens can be dropped into given column", () => {
   board.dropTokenIntoColumn(R, 2);
   board.dropTokenIntoColumn(Y, 2);
 
@@ -46,7 +46,7 @@ it("tokens can be dropped into given column", () => {
                                 ]);
 });
 
-it("exception thrown when dropping token into full column", () => {
+xit("exception thrown when dropping token into full column", () => {
   const smallBoard = new Board(1, 1);
   smallBoard.dropTokenIntoColumn(R, 0);
 
@@ -56,16 +56,16 @@ it("exception thrown when dropping token into full column", () => {
   expect(dropTokenIntoFullColumn).toThrowError(InvalidMove);
 });
 
-it("exception thrown when dropping token with an invalid column number", () => {
+xit("exception thrown when dropping token with an invalid column number", () => {
   const smallBoard = new Board(1, 1);
 
   const dropTokenIntoInvalidColumn = () => smallBoard.dropTokenIntoColumn(R, 2);
 
-  expect(dropTokenIntoInvalidColumn).toThrowError("Invalid column number: 2");
+  expect(dropTokenIntoInvalidColumn).toThrowError("Invalid column number: 3");
   expect(dropTokenIntoInvalidColumn).toThrowError(InvalidMove);
 });
 
-it("isGameOver() returns winner when there is a winning sequence of tokens", () => {
+xit("isGameOver() returns winner when there is a winning sequence of tokens", () => {
   const theBoard = (state) => (new Board(5, 5, state));
 
   const columnConnectFour = theBoard([
@@ -105,7 +105,7 @@ it("isGameOver() returns winner when there is a winning sequence of tokens", () 
   expect(bottomToTopDiagnolConnectFour.isGameOver()).toEqual(GAME_RESULT.RED_WINS);
 });
 
-it("isGameOver() returns INCOMPLETE when there are still moves possible ", () => {
+xit("isGameOver() returns INCOMPLETE when there are still moves possible ", () => {
   const theBoard = (state) => (new Board(5, 5, state));
 
   const gameNotOver = theBoard([
@@ -119,7 +119,7 @@ it("isGameOver() returns INCOMPLETE when there are still moves possible ", () =>
   expect(gameNotOver.isGameOver()).toEqual(GAME_RESULT.INCOMPLETE);
 });
 
-it("isGameOver() returns DRAW when there are no more moves possible ", () => {
+xit("isGameOver() returns DRAW when there are no more moves possible ", () => {
   const theBoard = (state) => (new Board(4, 4, state));
 
   const draw = theBoard([
@@ -130,4 +130,15 @@ it("isGameOver() returns DRAW when there are no more moves possible ", () => {
   ]);
 
   expect(draw.isGameOver()).toEqual(GAME_RESULT.DRAW);
+});
+
+it("validMoves() returns column numbers where a valid move can be made", () => {
+  const smallBoard = new Board(2, 2);
+
+  expect(smallBoard.validMoves()).toEqual([0, 1]);
+
+  smallBoard.dropTokenIntoColumn(R, 0);
+  smallBoard.dropTokenIntoColumn(R, 0);
+  expect(smallBoard.validMoves()).toEqual([1]);
+
 });

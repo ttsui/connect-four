@@ -61,6 +61,20 @@ class Board {
     return this._state;
   }
 
+  validMoves() {
+    const columnsWithSpace = [];
+
+    this._state[0].reduce((acc, cell, colIdx) => {
+      if (cell === EMPTY) {
+        acc.push(colIdx)
+      }
+
+      return acc;
+    }, columnsWithSpace);
+
+    return columnsWithSpace;
+  }
+
   _isConnectFour(rowIdx, colIdx) {
     const firstCell = this._state[rowIdx][colIdx];
     let isConnectedColumn = true;
