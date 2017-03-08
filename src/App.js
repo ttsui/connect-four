@@ -1,30 +1,17 @@
-import readline from "readline";
 import _ from "lodash";
 import Board from "./Board";
-import { RED, YELLOW, GAME_RESULT } from "./constants";
-import HumanPlayer from "./HumanPlayer";
-import ComputerPlayer from "./ComputerPlayer";
-
-function createInput() {
-  return readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-  });
-}
+import {  GAME_RESULT } from "./constants";
 
 class App {
-  constructor(input = createInput(), output = console.log) {
+  constructor(players, output = console.log) {
     this._board = new Board();
-    this._input = input;
     this._output = output
     this._turnNumber = 0;
-    this._players = [
-      new HumanPlayer(RED, this._input),
-      new ComputerPlayer(YELLOW)
-    ];
+    this._players = players;
   }
 
-  start() {
+  start(onGameOver) {
+    this._onGameOver = onGameOver;
     this._printBoard();
     this._nextTurn();
   }
@@ -33,8 +20,8 @@ class App {
     const gameResult = this._board.isGameOver();
 
     if (gameResult !== GAME_RESULT.INCOMPLETE) {
-      this._input.close();
       this._output(this._gameOverMessage(gameResult));
+      this._onGameOver();
     } else {
       this._nextTurn();
     }
