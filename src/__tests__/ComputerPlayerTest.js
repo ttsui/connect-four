@@ -7,15 +7,18 @@ it("place token in first column with an empty space", () => {
     [_, _],
     [_, _]
   ];
+  let board = {
+    state: () => boardState
+  };
 
-  const player = new ComputerPlayer(R, { state: () => boardState });
-  player.getMove(moveCallback);
+  const player = new ComputerPlayer(R);
+  player.getMove(board, moveCallback);
   expect(moveCallback).toHaveBeenCalledWith(R, 1);
 
   boardState =[
     [R, _],
     [R, _]
   ];
-  player.getMove(moveCallback);
+  player.getMove(board, moveCallback);
   expect(moveCallback).toHaveBeenCalledWith(R, 2);
 });

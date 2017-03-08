@@ -5,7 +5,7 @@ class HumanPlayer {
     this._input = input;
   }
 
-  getMove(callback) {
+  getMove(board, callback) {
     this._input.question("Enter column number: ", column => {
       callback(this._token, parseInt(column));
     });

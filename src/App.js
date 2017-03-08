@@ -20,7 +20,7 @@ class App {
     this._turnNumber = 0;
     this._players = [
       new HumanPlayer(RED, this._input),
-      new ComputerPlayer(YELLOW, this._board)
+      new ComputerPlayer(YELLOW)
     ];
   }
 
@@ -58,7 +58,7 @@ class App {
     this._output(`Valid column numbers: ${validMoves}`);
 
     const currentPlayer = this._players[this._turnNumber % this._players.length];
-    currentPlayer.getMove((token, column) => {
+    currentPlayer.getMove(this._board, (token, column) => {
       try {
         this._board.dropTokenIntoColumn(token, column - 1);
         this._printBoard();

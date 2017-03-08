@@ -9,7 +9,7 @@ it("reads input from player", () => {
 
   const moveCallback = jest.fn();
   const player = new HumanPlayer(RED, input);
-  player.getMove(moveCallback);
+  player.getMove(null, moveCallback);
 
   expect(moveCallback).toHaveBeenCalledWith(RED, 1);
 });
