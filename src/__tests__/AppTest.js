@@ -7,7 +7,8 @@ function boardToString(board) {
 
 it("reads input from user then prints board", () => {
   const input = {
-    question: jest.fn().mockImplementationOnce((prompt, callback) => callback("2")),
+    question: jest.fn().mockImplementationOnce((prompt, callback) => callback("2"))
+                       .mockImplementationOnce((prompt, callback) => callback("1")),
     close: jest.fn()
   };
   const output = jest.fn();
@@ -23,14 +24,18 @@ it("reads input from user then prints board", () => {
     [_, _, _, _, _, _, _],
     [_, _, _, _, _, _, _],
     [_, _, _, _, _, _, _],
-    [_, R, _, _, _, _, _],
+    [Y, R, _, _, _, _, _],
     [1, 2, 3, 4, 5, 6, 7]
   ]));
 });
 
 it("closes input once the game is over", () => {
+  let turnNumber = 0;
   const input = {
-    question: jest.fn((prompt, callback) => callback("1")),
+    question: jest.fn((prompt, callback) => {
+      turnNumber++;
+      callback((turnNumber % 2) + 1);
+    }),
     close: jest.fn()
   };
   const output = jest.fn();
