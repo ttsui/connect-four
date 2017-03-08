@@ -2,6 +2,7 @@ import readline from "readline";
 import _ from "lodash";
 import Board from "./Board";
 import { RED, GAME_RESULT } from "./constants";
+import HumanPlayer from "./HumanPlayer";
 
 function createInput() {
   return readline.createInterface({
@@ -15,6 +16,7 @@ class App {
     this._board = new Board();
     this._input = input;
     this._output = output
+    this._humanPlayer = new HumanPlayer(RED, this._input);
   }
 
   start() {
@@ -26,22 +28,26 @@ class App {
     const validMoves = this._board.validMoves().map(c => c+1).join(", ");
     this._output(`Valid column numbers: ${validMoves}`);
 
-    this._input.question("Enter column number: ", column => {
+    this._humanPlayer.getMove((token, column) => {
       try {
-        this._board.dropTokenIntoColumn(RED, parseInt(column) - 1);
+        this._board.dropTokenIntoColumn(token, column - 1);
         this._printBoard();
       } catch (e) {
         this._output(e.message);
       }
 
-      const gameResult = this._board.isGameOver();
-      if (gameResult !== GAME_RESULT.INCOMPLETE) {
-        this._input.close();
-        this._output("Game result is: ", gameResult);
-      } else {
-        this._getInput();
-      }
+      this._checkForEndGame();
     });
+  }
+
+  _checkForEndGame() {
+    const gameResult = this._board.isGameOver();
+    if (gameResult !== GAME_RESULT.INCOMPLETE) {
+      this._input.close();
+      this._output("Game result is: ", gameResult);
+    } else {
+      this._getInput();
+    }
   }
 
   _printBoard() {
